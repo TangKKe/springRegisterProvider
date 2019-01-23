@@ -1,0 +1,35 @@
+spring:
+  application:
+    name: spring-cloud-eureka-app01
+server:
+  port: 8002
+  context-path: /server #设置服务上下文路径
+eureka:
+  instance:
+    hostname: 127.0.0.1
+    preferIpAddress: true
+  client:
+    serviceUrl:
+      defaultZone: http://tangke:tangke123@106.12.85.1:8000/server/eureka/
+    fetch-registry: true
+    register-with-eureka: true
+# 安全认证的配置  
+security:  
+  basic:  
+    enabled: true  
+  user:  
+    name: tangke  # 加密后用户名，原值tangke
+    password: tangke123   # 加密后用户密码，原值tangke123
+#jasypt加密的密匙，同一原文，每次生成的密文都是不一致的，但解密后原文一致
+jasypt:
+  encryptor:
+    password: EbfYkitulv73I2p0mXI50JMXoaxZTKJ7
+#自定义redis配置
+redis:
+  nodes: 106.12.85.1:7003,106.12.85.1:7004,106.12.85.1:7005,106.13.2.1:7000,106.13.2.1:7001,106.13.2.1:7002 #IP和端口号
+  commandTimeout: 10000  #redis操作的超时时间
+  maxTotal: 5000 #最大连接数
+  maxIdle: 30 #最大空闲连接数
+  minIdle: 5 #最小空闲连接数
+  maxWait: 3000  #获取连接最大等待时间 ms  #default -1
+  pwd: ENC(B5mYXT5cyJuQNTDAs9MqLMC1bLLJETdJ)
