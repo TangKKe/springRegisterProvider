@@ -40,7 +40,7 @@ public class getInfoFromRedisCtrl {
 	@RequestMapping("/getString")
 	@ResponseBody
 	public String getString() {
-		return "商务合作，请联系邓先生，电话：152 0034 2569";
+		return "this a string";
 	}
 
 }
