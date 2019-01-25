@@ -40,7 +40,7 @@ public class getInfoFromRedisCtrl {
 	@RequestMapping("/getString")
 	@ResponseBody
 	public String getString() {
-		return "this a string";
+		return "this a string created by provider!";
 	}
 
 }

@@ -1,6 +1,6 @@
 spring:
   application:
-    name: spring-cloud-eureka-app01
+    name: APPLICATION-01
 server:
   port: 8002
   context-path: /server #设置服务上下文路径
@@ -10,7 +10,7 @@ eureka:
     preferIpAddress: true
   client:
     serviceUrl:
-      defaultZone: http://tangke:tangke123@106.12.85.1:8000/server/eureka/
+      defaultZone: ENC(4nrJArLL7vLeyAaq0w+C0hjXOrMTz5GzVMtkAxURbs2K2/qTcnWfv4LgVKwMA6x9q6pGKDsfDD2YBo8aI3NSXw==)
     fetch-registry: true
     register-with-eureka: true
 # 安全认证的配置  
@@ -18,8 +18,8 @@ security:
   basic:  
     enabled: true  
   user:  
-    name: tangke  # 加密后用户名，原值tangke
-    password: tangke123   # 加密后用户密码，原值tangke123
+    name: ENC(S/TpNeZdtkFXpEENvR0Bzw==)  # 加密后用户名，原值tangke
+    password: ENC(YMLLIIrzVG6YJEGoWcdBdwF0FygHFqfy)   # 加密后用户密码，原值tangke123
 #jasypt加密的密匙，同一原文，每次生成的密文都是不一致的，但解密后原文一致
 jasypt:
   encryptor:
