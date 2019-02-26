@@ -19,8 +19,8 @@ public class getInfoFromRedisCtrl {
 	
 	@RequestMapping("/getInfo")
 	@ResponseBody
-	public String getInfo() {
-		String info = redisUtil.get("name");
+	public Object getInfo() {
+		Object info = redisUtil.getObjectByKey("name");
 		return info;
 	}
 	
@@ -32,7 +32,7 @@ public class getInfoFromRedisCtrl {
 			info = "该键已经存在！";
 			return info;
 		}
-		redisUtil.set("name", "tangke");
+		redisUtil.setKeyAndValue("name", "tangke");
 		info = "设置成功！";
 		return info;
 	}
@@ -41,6 +41,12 @@ public class getInfoFromRedisCtrl {
 	@ResponseBody
 	public String getString() {
 		return "this a string created by provider!";
+	}
+	
+	@RequestMapping("/info")
+	@ResponseBody
+	public String info() {
+		return "this a provider!";
 	}
 
 }

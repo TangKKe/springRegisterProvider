@@ -24,13 +24,13 @@ public class getInfoFromRedisTest {
 	
 	@Test
 	public void testGetInfo() {
-		System.out.println(redisUtil.getObject("name"));
+		System.out.println(redisUtil.getObjectByKey("name"));
 		
 	}
 	
 	@Test
 	public void testSetInfo() {
-		redisUtil.set("name1", "FuJiaWang");
+		redisUtil.setKeyAndValue("name1", "FuJiaWang1");
 		
 	}
 	

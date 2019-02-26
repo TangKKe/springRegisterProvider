@@ -1,18 +1,65 @@
 spring:
   application:
-    name: APPLICATION-01
+    name: springRegisterProvider
+  security:  
+    basic:  
+      enabled: true  
+    user:  
+      name: tangke
+      password: tangke123
+  redis:
+    timeout: 6000
+    commandTimeout: 10000
+    password: ENC(B5mYXT5cyJuQNTDAs9MqLMC1bLLJETdJ)
+#    集群环境打开下面注释，单机不需要打开
+    cluster:
+#      集群信息
+      nodes: 106.12.85.1:7003,106.12.85.1:7004,106.12.85.1:7005,106.13.2.1:7000,106.13.2.1:7001,106.13.2.1:7002
+#      #默认值是5 一般当此值设置过大时，容易报：Too many Cluster redirections
+      maxRedirects: 3
+#lettuce连接池
+    lettuce:
+      pool:
+        max-active: 500
+        min-idle: 5
+        max-idle: 10
+        max-wait: 3000
 server:
   port: 8002
-  context-path: /server #设置服务上下文路径
+  context-path: / #设置服务上下文路径
 eureka:
   instance:
-    hostname: 127.0.0.1
+    ipAddress: 106.12.85.1
     preferIpAddress: true
+    instance-id: ${eureka.instance.ipAddress}:${server.port}
+     #如果项目配置有 server.servlet.context-path 属性，想要被 spring boot admin 监控，就要配置以下属性
+    metadata-map:
+      user:  
+        name: tangke  # 加密后用户名，原值tangke  
+        password: tangke123 # 加密后用户密码，原值tangke123
+    #health-check-url: http://${eureka.instance.ipAddress}:${server.port}${server.context-path}/actuator/health
+    #status-page-url: http://${eureka.instance.ipAddress}:${server.port}${server.context-path}/actuator/info
+    #home-page-url: http://${eureka.instance.ipAddress:${server.port}/
   client:
     serviceUrl:
-      defaultZone: ENC(4nrJArLL7vLeyAaq0w+C0hjXOrMTz5GzVMtkAxURbs2K2/qTcnWfv4LgVKwMA6x9q6pGKDsfDD2YBo8aI3NSXw==)
+      defaultZone: http://tangke:tangke123@106.12.85.1:8000/eureka/
     fetch-registry: true
     register-with-eureka: true
+
+#springBootAdmin端点配置
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: ALWAYS
+info:
+  app:
+    name: springRegisterProvider
+    description: springRegisterProvider
+    version: 1.0.0
 # 安全认证的配置  
 security:  
   basic:  
@@ -24,12 +71,3 @@ security:
 jasypt:
   encryptor:
     password: EbfYkitulv73I2p0mXI50JMXoaxZTKJ7
-#自定义redis配置
-redis:
-  nodes: 106.12.85.1:7003,106.12.85.1:7004,106.12.85.1:7005,106.13.2.1:7000,106.13.2.1:7001,106.13.2.1:7002 #IP和端口号
-  commandTimeout: 10000  #redis操作的超时时间
-  maxTotal: 5000 #最大连接数
-  maxIdle: 30 #最大空闲连接数
-  minIdle: 5 #最小空闲连接数
-  maxWait: 3000  #获取连接最大等待时间 ms  #default -1
-  pwd: ENC(B5mYXT5cyJuQNTDAs9MqLMC1bLLJETdJ)
